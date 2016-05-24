@@ -1,34 +1,52 @@
-var should = require("should");
-var sinon = require("sinon");
-var sinonaspromised = require("sinon-as-promised");
-var rewire = require("rewire");
+const should = require("should");
+const sinon = require("sinon");
+const sinonaspromised = require("sinon-as-promised");
+const rewire = require("rewire");
 
-var LastFmService = rewire('../services/lastFmService');
-var Promise = require('bluebird');
+const LastFmService = rewire('../services/lastFmService');
 
-describe("LastFM Service", function() {
+describe("LastFM Service", () => {
 
-    var dummyResponse = {
-        artist: { "#text" : "Test Artist" },
-        name:   "Test track name",
-        nowplaying: false
-    };
+    let dummyResponse,
+        makeRequestStub,
+        lfmService;
 
-    var makeRequestStub = sinon.stub();
-    makeRequestStub.resolves(dummyResponse);
+    before(() => {
+        dummyResponse = {
+            artist: { "#text" : "Test Artist" },
+            name:   "Test track name",
+            nowplaying: false
+        };
 
-    LastFmService.__set__('lastfm', {
-            makeRequest: makeRequestStub
-        }
-    );
+        makeRequestStub = sinon.stub();
+        makeRequestStub.resolves(dummyResponse);
 
-    it ("Makes request to last FM", function(done) {
-        var lfmService = new LastFmService();
+        LastFmService.__set__('lastfm', {
+                makeRequest: makeRequestStub
+            }
+        );
+
+        lfmService = new LastFmService();
+    });
+
+    it ("Makes request to last FM", (done) => {
         lfmService.getTrackForUser('username')
-            .then(function(){
+            .then(() => {
                 makeRequestStub.calledOnce.should.be.true;
                 makeRequestStub.calledWith('username').should.be.true;
                 done();
             });
     });
-})
+
+    it ("Fires track-data-received event", (done) => {
+        let eventSpy = sinon.spy();
+        setTimeout(() => {
+            eventSpy.calledOnce.should.be.true;
+            eventSpy.calledWith(dummyResponse).should.be.true;
+            done();
+        }, 1);
+
+        lfmService.on('track-data-received', eventSpy);
+        lfmService.getTrackForUser('onotron');
+    });
+});

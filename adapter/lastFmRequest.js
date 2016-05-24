@@ -23,7 +23,8 @@ var makeRequest = function(username, apikey, apisecret) {
                     }
 
                     resolve(track);
-                })
+                }),
+                error : function(e) { console.log(e)}
             }
         });
     });

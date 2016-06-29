@@ -1,7 +1,11 @@
-const should = require("should");
+const chai = require('chai');
+const sinonChai = require("sinon-chai");
+chai.should();
+chai.use(sinonChai);
+
 const sinon = require("sinon");
 const rewire = require("rewire");
-const slackPost = rewire("../services/slack");
+const slackPost = rewire("../../services/slackService");
 
 describe("Slack service", () => {
     var post = sinon.spy();

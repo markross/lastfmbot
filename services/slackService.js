@@ -3,6 +3,7 @@ let Promise = require('bluebird');
 let request = require('request');
 
 const postToSlack = (username, channel, message) => {
+    
     let payload = {
         "username"  : username,
         "text"      : message,
@@ -15,7 +16,7 @@ const postToSlack = (username, channel, message) => {
     };
 
     let cb = (error, response, body) => {
-        console.log(body);
+        
     };
 
     request.post(options, cb);

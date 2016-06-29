@@ -4,8 +4,7 @@ var lastFm = require('lastfm').LastFmNode;
 var Promise = require('bluebird');
 
 var makeRequest = function(username, apikey, apisecret) {
-
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject) {
         var lastfm = new lastFm({
             api_key: apikey,
             secret: apisecret
@@ -24,7 +23,7 @@ var makeRequest = function(username, apikey, apisecret) {
 
                     resolve(track);
                 }),
-                error : function(e) { console.log(e)}
+                error : (e) =>  console.log(e.message)
             }
         });
     });

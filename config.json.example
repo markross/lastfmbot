@@ -1,0 +1,6 @@
+{
+  "api_key": "",
+  "secret": "",
+  "slash_token": "",
+  "incoming_webhook": "https://yourteam.slack.com/services/hooks/incoming-webhook?token=xyz"
+}

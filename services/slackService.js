@@ -1,4 +1,4 @@
-let slackPostUri = 'https://inviqa.slack.com/services/hooks/incoming-webhook?token=vx7fyGhCo0WLR96V0XcKmw9G';
+let slackPostUri = require('../config.json').incoming_webhook;
 let Promise = require('bluebird');
 let request = require('request');
 

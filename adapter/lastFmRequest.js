@@ -2,12 +2,13 @@
 
 var lastFm = require('lastfm').LastFmNode;
 var Promise = require('bluebird');
+var config = require('../config.json');
 
-var makeRequest = function(username, apikey, apisecret) {
+var makeRequest = function(username) {
     return new Promise(function(resolve, reject) {
         var lastfm = new lastFm({
-            api_key: apikey,
-            secret: apisecret
+            api_key: config.api_key,
+            secret: config.secret
         });
 
         var nowplaying = lastfm.request('user.getRecentTracks', {

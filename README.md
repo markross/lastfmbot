@@ -7,7 +7,7 @@ Slack incoming webhook. Now you should be ready to go!
 
 Just type your slash command followed by your LastFM username e.g.
 
-`/nowplaying johnnyrotten`
+`/nowplaying joebloggs`
 
 Your most recently played (or currently playing) track should be posted back to the channel. 
 Your LastFM username should also be saved so in future you can omit it from the slash command.

@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
     try {
         slashHandler(req).then((slashPostVars) => {
             bot.processSlash(slashPostVars);
-            res.sendStatus(200);            
+            res.status(200).end();
         }).catch((e) => {
             if (e.name = 'UserNameNotFound') {
                 res.send(200);

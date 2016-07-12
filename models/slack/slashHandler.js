@@ -27,6 +27,10 @@ module.exports = Promise.method((req) => {
     if (userNameSupplied(req)) {
         username.set(body.user_name, body.text);
         lastFmUserName = body.text;
+        postToSlack(
+            "LastFM Bot",
+            `@${req.body.user_name}`,
+            `I've remembered your LastFM username as ${lastFmUserName}. Next time you can omit it.`);
         body.last_fm_username = lastFmUserName;
         return body;
     } else {
